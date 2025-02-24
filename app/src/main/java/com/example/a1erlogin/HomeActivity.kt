@@ -1,0 +1,51 @@
+package com.example.a1erlogin
+
+import android.os.Bundle
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+
+enum class ProviderType {
+    BASIC
+}
+
+class HomeActivity : AppCompatActivity() {
+
+    lateinit var emailTextView : TextView
+    lateinit var providerTextView : TextView
+    lateinit var logOutButton : TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        // Setup
+        val bundle = intent.extras
+        val email = bundle?.getString("email")
+        val provider = bundle?.getString("provider")
+        setup(email?: "", provider?: "")
+
+        setContentView(R.layout.activity_home)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun setup(email:String, provider: String) {
+        title = "Home"
+        emailTextView.text = email
+        providerTextView.text = provider
+
+
+        logOutButton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            //
+        }
+    }
+}

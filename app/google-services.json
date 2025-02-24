@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "704861516067",
+    "project_id": "apex-crimvox",
+    "storage_bucket": "apex-crimvox.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704861516067:android:c3e27a5b7bf6067bd15c96",
+        "android_client_info": {
+          "package_name": "com.apex.loginfb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8mbDqGElXemRZn4dyGsTfUUXYjM9Z7F8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704861516067:android:1e178f0282bf1451d15c96",
+        "android_client_info": {
+          "package_name": "com.example.a1erlogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8mbDqGElXemRZn4dyGsTfUUXYjM9Z7F8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
