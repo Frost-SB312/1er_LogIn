@@ -22,6 +22,8 @@ class AuthActivity : AppCompatActivity() {
     lateinit var signUpButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        lateinit var auth: FirebaseAuth;
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_auth)
@@ -37,33 +39,47 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        title="Autenticacion"
+        title = "Autenticacion"
+
+        // Inicializamos las vistas
+        emailEditText = findViewById(R.id.emailEditText)
+        passwordEditText = findViewById(R.id.passwordEditText)
+        loginButton = findViewById(R.id.loginButton)
+        signUpButton = findViewById(R.id.signUpButton)
+
         signUpButton.setOnClickListener {
             if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                        } else {
-                            showAlert()
-                        }
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                    emailEditText.text.toString(),
+                    passwordEditText.text.toString()
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showHome(task.result?.user?.email ?: "", ProviderType.BASIC)
+                    } else {
+                        Log.e("AuthError", "Error al registrar", task.exception) // <-- Agregado
+                        showAlert()
                     }
+                }
             }
         }
 
         loginButton.setOnClickListener {
             if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                        } else {
-                            showAlert()
-                        }
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                    emailEditText.text.toString(),
+                    passwordEditText.text.toString()
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showHome(task.result?.user?.email ?: "", ProviderType.BASIC)
+                    } else {
+                        Log.e("AuthError", "Error al iniciar sesión", task.exception) // <-- Agregado
+                        showAlert()
                     }
+                }
             }
         }
     }
+
 
     private fun showHome(email: String, provider: ProviderType){
         val homeIntent = Intent(this, HomeActivity::class.java).apply {
