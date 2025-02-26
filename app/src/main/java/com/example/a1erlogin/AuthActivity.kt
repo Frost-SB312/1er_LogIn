@@ -5,43 +5,31 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.auth.FirebaseAuth
-
-
 
 class AuthActivity : AppCompatActivity() {
 
-    lateinit var emailEditText : EditText
-    lateinit var passwordEditText : EditText
-    lateinit var loginButton : Button
-    lateinit var signUpButton : Button
+    lateinit var emailEditText: EditText
+    lateinit var passwordEditText: EditText
+    lateinit var loginButton: Button
+    lateinit var signUpButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        lateinit var auth: FirebaseAuth;
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_auth)
 
         setup()
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     private fun setup() {
-        title = "Autenticacion"
+        title = "Autenticación"
 
-        // Inicializamos las vistas
+
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
@@ -56,7 +44,7 @@ class AuthActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         showHome(task.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
-                        Log.e("AuthError", "Error al registrar", task.exception) // <-- Agregado
+                        Log.e("AuthError", "Error al registrar", task.exception)
                         showAlert()
                     }
                 }
@@ -72,7 +60,7 @@ class AuthActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         showHome(task.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
-                        Log.e("AuthError", "Error al iniciar sesión", task.exception) // <-- Agregado
+                        Log.e("AuthError", "Error al iniciar sesión", task.exception)
                         showAlert()
                     }
                 }
@@ -80,21 +68,19 @@ class AuthActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun showHome(email: String, provider: ProviderType){
+    private fun showHome(email: String, provider: ProviderType) {
         val homeIntent = Intent(this, HomeActivity::class.java).apply {
             putExtra("email", email)
             putExtra("provider", provider.name)
         }
         startActivity(homeIntent)
-
     }
 
-    private fun showAlert(){
+    private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
-        builder.setMessage("There was an error authenticating the user")
-        builder.setPositiveButton("Accept", null)
+        builder.setMessage("Hubo un error en la autenticación")
+        builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
