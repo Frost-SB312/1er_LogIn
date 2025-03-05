@@ -5,33 +5,42 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bienvenida"
-    tools:context=".HomeActivity">
+    android:background="@drawable/welcome"
+    tools:context=".AuthActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        android:gravity="bottom"
-        tools:layout_editor_absoluteY="1dp">
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="185dp"
+            android:layout_height="194dp"
+            app:srcCompat="@mipmap/usericon" />
 
         <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Email" />
+            android:id="@+id/textView2"
+            android:layout_width="192dp"
+            android:layout_height="37dp"
+            android:gravity="center"
+            android:paddingBottom="3sp"
+            android:text="SE ACABA DE INICIAR SESION CORRECTAMENTE"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/providerTextView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Proveedor" />
+            android:id="@+id/textView"
+            android:layout_width="247dp"
+            android:layout_height="63dp"
+            android:gravity="center"
+            android:text="Bienvenido"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp"
 
-        <Button
-            android:id="@+id/logOutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Close Session" />
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

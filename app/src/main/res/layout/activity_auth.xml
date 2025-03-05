@@ -15,13 +15,14 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/iconodecuenta" />
+            android:id="@+id/imageView"
+            android:layout_width="185dp"
+            android:layout_height="178dp"
+            app:srcCompat="@mipmap/usericon" />
 
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="372dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corner"
@@ -34,7 +35,7 @@
 
         <EditText
             android:id="@+id/passwordEditText"
-            android:layout_width="372dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_corner"
@@ -47,7 +48,7 @@
 
         <Button
             android:id="@+id/loginButton"
-            android:layout_width="372dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:backgroundTint="#000000"
@@ -58,12 +59,12 @@
 
         <Button
             android:id="@+id/signUpButton"
-            android:layout_width="372dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:backgroundTint="#000000"
             android:padding="18dp"
-            android:text="sign up"
+            android:text="Sign up"
             android:textColor="#CC0000"
             android:textSize="20sp" />
 
