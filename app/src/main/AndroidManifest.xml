@@ -13,14 +13,24 @@
         android:theme="@style/Theme._1erLogIn"
         tools:targetApi="31">
         <activity
+            android:name=".PublishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyPublicationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PublicationsActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".AuthActivity"
-            android:theme="@style/Theme.MyApp"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MyApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

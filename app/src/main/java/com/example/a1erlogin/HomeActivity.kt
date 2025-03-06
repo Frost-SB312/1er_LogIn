@@ -1,5 +1,6 @@
 package com.example.a1erlogin
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -24,6 +25,22 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_home) // Mueve esta línea arriba
 
+        val btnpublications: Button = findViewById(R.id.publications)
+
+        btnpublications.setOnClickListener{
+            val intent: Intent = Intent(this, PublicationsActivity::class.java)
+        }
+
+        val btnmypublications: Button = findViewById(R.id.mypublications)
+
+        btnmypublications.setOnClickListener{
+            val intent: Intent = Intent(this, MyPublicationsActivity::class.java)
+        }
+
+        val btnpublish : Button = findViewById(R.id.publish)
+        btnpublish.setOnClickListener{
+            val intent: Intent = Intent (this, PublishActivity::class.java)
+        }
 
         val bundle = intent.extras
         val email = bundle?.getString("email")
@@ -43,9 +60,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setup(email:String, provider: String) {
 
         // Inicializamos las vistas
-        emailTextView = findViewById(R.id.emailTextView)
-        providerTextView = findViewById(R.id.providerTextView)
-        logOutButton = findViewById(R.id.logOutButton)
+
 
 
 

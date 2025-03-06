@@ -11,10 +11,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="16dp">
+        tools:layout_editor_absoluteY="16dp"
+        android:padding="30sp">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -40,7 +41,55 @@
             android:text="Bienvenido"
             android:textColor="#FFFFFF"
             android:textSize="35sp"
-
             />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="30sp">
+        <Button
+            android:id="@+id/publications"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="Publicaciones"
+            android:textColor="#CC0000"
+            android:textSize="20sp"/>
+        <Button
+            android:id="@+id/mypublications"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="Mis publicaciones"
+            android:textColor="#CC0000"
+            android:textSize="20sp"/>
+        <Button
+            android:id="@+id/publish"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="Publicar"
+            android:textColor="#CC0000"
+            android:textSize="20sp"/>
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#000000"
+            android:padding="18dp"
+            android:text="Salir"
+            android:textColor="#CC0000"
+            android:textSize="20sp"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
