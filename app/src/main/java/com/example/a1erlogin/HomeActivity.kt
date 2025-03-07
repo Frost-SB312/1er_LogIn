@@ -3,7 +3,6 @@ package com.example.a1erlogin
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,38 +15,17 @@ enum class ProviderType {
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var emailTextView : TextView
-    lateinit var providerTextView : TextView
-    lateinit var logOutButton : Button
-
+    lateinit var logOutButton: Button
+    lateinit var btnPublications: Button
+    lateinit var btnMyPublications: Button
+    lateinit var btnPublish: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home) // Mueve esta línea arriba
 
-        val btnpublications: Button = findViewById(R.id.publications)
 
-        btnpublications.setOnClickListener{
-            val intent: Intent = Intent(this, PublicationsActivity::class.java)
-        }
-
-        val btnmypublications: Button = findViewById(R.id.mypublications)
-
-        btnmypublications.setOnClickListener{
-            val intent: Intent = Intent(this, MyPublicationsActivity::class.java)
-        }
-
-        val btnpublish : Button = findViewById(R.id.publish)
-        btnpublish.setOnClickListener{
-            val intent: Intent = Intent (this, PublishActivity::class.java)
-        }
-
-        val bundle = intent.extras
-        val email = bundle?.getString("email")
-        val provider = bundle?.getString("provider")
-
-
-        setup(email ?: "", provider ?: "")
+        setup()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -57,21 +35,51 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun setup(email:String, provider: String) {
-
-        // Inicializamos las vistas
-
-
-
+    private fun setup() {
 
         title = "Home"
-        emailTextView.text = email
-        providerTextView.text = provider
 
+        // Inicializamos las vistas
+        logOutButton = findViewById(R.id.logOutButton)
+        btnPublications = findViewById(R.id.publications)
+        btnPublish = findViewById(R.id.publish)
+        btnMyPublications = findViewById(R.id.mypublications)
+
+
+
+
+        btnMyPublications.setOnClickListener {
+            btnMyPublicationsFun()
+        }
+
+
+        btnPublish.setOnClickListener {
+            btnPublishFun()
+        }
+
+        btnPublications.setOnClickListener {
+            btnPublicationsFun()
+        }
 
         logOutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            onBackPressed()
             //
         }
+
+    }
+    private fun btnPublicationsFun() {
+        val publicationsIntent: Intent = Intent(this, PublicationsActivity::class.java)
+        startActivity(publicationsIntent)
+    }
+
+    private fun btnMyPublicationsFun() {
+        val myPublicationsIntent: Intent = Intent(this, MyPublicationsActivity::class.java)
+        startActivity(myPublicationsIntent)
+    }
+
+    private fun btnPublishFun() {
+        val publishIntent: Intent = Intent(this, PublishActivity::class.java)
+        startActivity(publishIntent)
     }
 }

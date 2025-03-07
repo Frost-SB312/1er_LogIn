@@ -2,52 +2,49 @@ package com.example.a1erlogin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.auth.FirebaseAuth
 
-class AuthActivity : AppCompatActivity() {
-
+class SignUpActivity : AppCompatActivity() {
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
     lateinit var signUpButton: Button
-    lateinit var loginButton: Button
+    lateinit var logInButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
+
+
+        setContentView(R.layout.activity_sign_up)
 
         setup()
     }
 
-    private fun setup() {
-        title = "Autenticación"
-
-
+    private fun setup(){
+        title = "Registro"
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        loginButton = findViewById(R.id.loginButton)
         signUpButton = findViewById(R.id.signUpButton)
+        logInButton = findViewById(R.id.loginButton)
 
-        signUpButton.setOnClickListener {
-            showSignUp()
+        logInButton.setOnClickListener {
+            showLogIn()
         }
 
-        loginButton.setOnClickListener {
+        signUpButton.setOnClickListener {
             if (emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                     emailEditText.text.toString(),
                     passwordEditText.text.toString()
                 ).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         showHome(task.result?.user?.email ?: "", ProviderType.BASIC)
                     } else {
-                        Log.e("AuthError", "Error al iniciar sesión", task.exception)
+                        Log.e("AuthError", "Error al registrar", task.exception)
                         showAlert()
                     }
                 }
@@ -72,8 +69,8 @@ class AuthActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showSignUp() {
-        val signUpIntent: Intent = Intent(this, SignUpActivity::class.java)
-        startActivity(signUpIntent)
+    private fun showLogIn() {
+        val logInIntent = Intent(this, AuthActivity::class.java)
+        startActivity(logInIntent)
     }
 }

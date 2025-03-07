@@ -80,7 +80,7 @@
             android:textColor="#CC0000"
             android:textSize="20sp"/>
         <Button
-            android:id="@+id/logout"
+            android:id="@+id/logOutButton"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
