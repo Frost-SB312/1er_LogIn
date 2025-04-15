@@ -79,7 +79,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun btnPublishFun() {
-        val publishIntent: Intent = Intent(this, PublishActivity::class.java)
+        val email = intent.getStringExtra("email") // Obtén el email del Intent actual
+        val publishIntent: Intent = Intent(this, PublishActivity::class.java).apply {
+            putExtra("email", email) // Pasa el email al siguiente Intent
+        }
         startActivity(publishIntent)
     }
 }

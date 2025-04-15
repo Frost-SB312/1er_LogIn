@@ -5,17 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PublishActivity"
-    android:background="@drawable/welcome">
+    android:background="@drawable/welcome"
+    android:foregroundTint="@color/white"
+    tools:context=".PublishActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:padding="30sp"
         tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="16dp"
-        android:padding="30sp">
+        tools:layout_editor_absoluteY="16dp">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="247dp"
@@ -23,22 +25,30 @@
             android:gravity="center"
             android:text="Crear Publicación"
             android:textColor="#FFFFFF"
-            android:textSize="35sp"
-            />
+            android:textSize="35sp" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_corner"
-            android:hint="Escribe tu publicación aquí..."
-            android:inputType="text"
-            android:padding="18dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textSize="20sp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="31dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="349dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/publicTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
+                android:hint=""
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/publishBtn"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
