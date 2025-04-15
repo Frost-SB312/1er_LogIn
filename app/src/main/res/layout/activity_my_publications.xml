@@ -35,7 +35,7 @@
         tools:layout_editor_absoluteY="69dp"
         tools:ignore="MissingConstraints" />
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/EditBtn"
         android:layout_width="112dp"
         android:layout_height="46dp"
         android:backgroundTint="#CC0000"
@@ -46,7 +46,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/DeleteBtn"
         android:layout_width="112dp"
         android:layout_height="46dp"
         android:backgroundTint="#CC0000"
