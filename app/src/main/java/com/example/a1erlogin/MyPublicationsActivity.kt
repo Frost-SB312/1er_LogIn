@@ -24,6 +24,7 @@ class MyPublicationsActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setContentView(R.layout.activity_my_publications)
+        setup()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -31,26 +32,54 @@ class MyPublicationsActivity : AppCompatActivity() {
         }
     }
     private fun setup() {
-        title = "Publicar"
-        MypublicationsTextInput = findViewById(R.id.textView4)
+        title = "Mis publicaciones"
+        MypublicationsTextInput = findViewById(R.id.publicationtext)
         EditBtn = findViewById(R.id.EditBtn)
         DeleteBtn = findViewById(R.id.DeleteBtn)
 
-        EditBtn.setOnClickListener {
-            if (!MypublicationsTextInput.text.isNullOrEmpty()) {
-                EditMyPublications()
-            }
+        val db = Firebase.firestore
+        val email = intent.getStringExtra("email") ?: ""
+
+        if (email.isNotEmpty()) {
+            db.collection("publications")
+                .whereEqualTo("author", email)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        val content = document.getString("content") ?: ""
+                        val id = document.id
+                        Log.d(TAG, content)
+
+                        // Muestra el contenido en el input
+                        MypublicationsTextInput.setText(content)
+
+                        // Guarda el ID y configura el botón Editar
+                        EditBtn.setOnClickListener {
+                            val newContent = MypublicationsTextInput.text.toString()
+                            EditMyPublications(id, newContent)
+                        }
+
+                        // Puedes hacer algo similar para DeleteBtn aquí si quieres
+                        break // solo usamos la primera publicación por ahora
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("MyPublicationsActivity", "Error obteniendo publicaciones", e)
+                }
         }
     }
-    fun EditMyPublications() {
-        val db = com.google.firebase.ktx.Firebase.firestore
-        val email =
-            intent.getStringExtra("email") ?: "Autor desconocido" // Obtén el email del Intent
-        val publication = hashMapOf(
-            "content" to MypublicationsTextInput.text.toString(),
-            "author" to email // Usa el email como autor
-        )
+
+    fun EditMyPublications(documentId: String, content: String) {
+        val email = intent.getStringExtra("email") ?: "Autor desconocido"
+
+        val editIntent = Intent(this, EditPublicationsActivity::class.java).apply {
+            putExtra("documentId", documentId)
+            putExtra("content", content)
+            putExtra("email", email)
+        }
+        startActivity(editIntent)
     }
+
     private fun btnPublishFun() {
         val email = intent.getStringExtra("email") // Obtén el email del Intent actual
         val EditIntent: Intent = Intent(this, EditPublicationsActivity::class.java).apply {
@@ -62,4 +91,4 @@ class MyPublicationsActivity : AppCompatActivity() {
     fun DeletePublication(){
 
     }
-    }
+}

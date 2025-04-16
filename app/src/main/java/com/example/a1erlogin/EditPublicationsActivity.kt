@@ -5,84 +5,74 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EditPublicationsActivity : AppCompatActivity() {
-    lateinit var EditPublicationsTextInput: TextInputEditText
-    lateinit var EditPublicationshBtn: Button
+    private lateinit var editTextInput: TextInputEditText
+    private lateinit var editBtn: Button
+    private var documentId: String? = null
+    private var email: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_edit_publications)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-    private fun setup() {
-        title = "Publicar"
-        EditPublicationsTextInput = findViewById(R.id.EditPublicationTextInput)
-        EditPublicationshBtn = findViewById(R.id.EditBtn)
 
-        EditPublicationshBtn.setOnClickListener {
-            if (!EditPublicationsTextInput.text.isNullOrEmpty()) {
-                EditPublication()
+        editTextInput = findViewById(R.id.EditPublicationTextInput)
+        editBtn = findViewById(R.id.EditBtn)
+
+        // Recupera los datos del Intent
+        documentId = intent.getStringExtra("documentId")
+        val content = intent.getStringExtra("content")
+        email = intent.getStringExtra("email")
+
+        // Establece el texto actual
+        editTextInput.setText(content)
+
+        editBtn.setOnClickListener {
+            if (!editTextInput.text.isNullOrEmpty()) {
+                updatePublication()
             }
         }
     }
-    fun EditPublication() {
+
+    private fun updatePublication() {
         val db = Firebase.firestore
-        val email = intent.getStringExtra("email") ?: "Autor desconocido" // Obtén el email del Intent
-        val publication = hashMapOf(
-            "content" to EditPublicationsTextInput.text.toString(),
-            "author" to email // Usa el email como autor
-        )
+        val newContent = editTextInput.text.toString()
 
-        // Add a new document with a generated ID
-        db.collection("publications")
-            .add(publication)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                showAlert()
-
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
-                showAlertError()
-            }
-    }
-    private fun showPublications() {
-        val email = intent.getStringExtra("email") // Obtén el email del Intent actual
-        val publicationsIntent: Intent = Intent(this, PublicationsActivity::class.java).apply {
-            putExtra("email", email) // Pasa el email al siguiente Intent
+        documentId?.let { id ->
+            db.collection("publications")
+                .document(id)
+                .update("content", newContent)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Publicación actualizada")
+                    showAlert("Éxito", "Publicación actualizada correctamente")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al actualizar", e)
+                    showAlert("Error", "No se pudo actualizar la publicación")
+                }
         }
-        startActivity(publicationsIntent)
     }
 
-    private fun showAlert() {
+    private fun showAlert(title: String, message: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Success")
-        builder.setMessage("Pubvlicación editada con éxito")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton("Aceptar") { _, _ ->
+            goBackToMyPublications()
+        }
+        builder.create().show()
     }
 
-    private fun showAlertError() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Hubo un error al editar la publicación")
-        builder.setPositiveButton("Aceptar") { _, _ -> showPublications() }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+    private fun goBackToMyPublications() {
+        val intent = Intent(this, MyPublicationsActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
     }
 }
+
