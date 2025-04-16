@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -60,6 +61,10 @@ class MyPublicationsActivity : AppCompatActivity() {
                             EditMyPublications(id, newContent)
                         }
 
+                        DeleteBtn.setOnClickListener {
+                            DeletePublication(id) // <-- llama a la función que borra
+                        }
+
                         // Puedes hacer algo similar para DeleteBtn aquí si quieres
                         break // solo usamos la primera publicación por ahora
                     }
@@ -89,7 +94,31 @@ class MyPublicationsActivity : AppCompatActivity() {
         startActivity(EditIntent)
     }
 
-    fun DeletePublication(){
+    fun DeletePublication(documentId: String) {
+        val db = Firebase.firestore
 
+        db.collection("publications")
+            .document(documentId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "Publicación eliminada con éxito.")
+                showAlertDeleted()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error al eliminar la publicación", e)
+            }
     }
+
+    private fun showAlertDeleted() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Publicación eliminada")
+        builder.setMessage("La publicación ha sido eliminada exitosamente.")
+        builder.setPositiveButton("Aceptar") { _, _ ->
+            finish() // Cierra la actividad o redirige a otra pantalla
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+
 }
