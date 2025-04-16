@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,7 +16,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.ktx.firestore
 
 class MyPublicationsActivity : AppCompatActivity() {
-    lateinit var MypublicationsTextInput: TextInputEditText
+    lateinit var MyPublicationsTextView: TextView
     lateinit var EditBtn: Button
     lateinit var DeleteBtn: Button
 
@@ -33,13 +34,13 @@ class MyPublicationsActivity : AppCompatActivity() {
     }
     private fun setup() {
         title = "Mis publicaciones"
-        MypublicationsTextInput = findViewById(R.id.publicationtext)
+        MyPublicationsTextView = findViewById(R.id.publicationtext)
         EditBtn = findViewById(R.id.EditBtn)
         DeleteBtn = findViewById(R.id.DeleteBtn)
 
         val db = Firebase.firestore
         val email = intent.getStringExtra("email") ?: ""
-
+        Log.d(TAG, "Email:$email")
         if (email.isNotEmpty()) {
             db.collection("publications")
                 .whereEqualTo("author", email)
@@ -48,14 +49,14 @@ class MyPublicationsActivity : AppCompatActivity() {
                     for (document in result) {
                         val content = document.getString("content") ?: ""
                         val id = document.id
-                        Log.d(TAG, content)
+                        Log.d(TAG, "content: $content")
 
                         // Muestra el contenido en el input
-                        MypublicationsTextInput.setText(content)
+                        MyPublicationsTextView.setText(content)
 
                         // Guarda el ID y configura el botón Editar
                         EditBtn.setOnClickListener {
-                            val newContent = MypublicationsTextInput.text.toString()
+                            val newContent = MyPublicationsTextView.text.toString()
                             EditMyPublications(id, newContent)
                         }
 

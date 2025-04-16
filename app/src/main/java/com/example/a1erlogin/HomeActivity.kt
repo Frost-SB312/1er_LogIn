@@ -74,7 +74,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun btnMyPublicationsFun() {
-        val myPublicationsIntent: Intent = Intent(this, MyPublicationsActivity::class.java)
+        val email = intent.getStringExtra("email") // Obtén el email del Intent actual
+        val myPublicationsIntent: Intent = Intent(this, MyPublicationsActivity::class.java).apply {
+            putExtra("email", email) // Pasa el email al siguiente Intent
+        }
         startActivity(myPublicationsIntent)
     }
 
