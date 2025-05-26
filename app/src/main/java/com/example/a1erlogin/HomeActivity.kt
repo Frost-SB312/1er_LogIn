@@ -1,5 +1,6 @@
 package com.example.a1erlogin
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
+import androidx.core.content.edit
 
 enum class ProviderType {
     BASIC
@@ -25,7 +27,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home) // Mueve esta línea arriba
 
 
+
         setup()
+
+        // Data Saving
+        getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit() {
+            val email = intent.getStringExtra("email")
+            val provider = intent.getStringExtra("provider")
+            putString("email", email)
+            putString("provider", provider)
+        }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -63,15 +75,21 @@ class HomeActivity : AppCompatActivity() {
 
         logOutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit() {
+                clear()
+            }
             onBackPressed()
             //
         }
 
     }
-    private fun btnPublicationsFun() {
-        val publicationsIntent: Intent = Intent(this, PublicationsActivity::class.java)
-        startActivity(publicationsIntent)
-    }
+        private fun btnPublicationsFun() {
+            val email = intent.getStringExtra("email") // Obtén el email del Intent actual
+            val publicationsIntent: Intent = Intent(this, PublicationsActivity::class.java).apply {
+                putExtra("email", email) // Pasa el email al siguiente Intent
+            }
+            startActivity(publicationsIntent)
+        }
 
     private fun btnMyPublicationsFun() {
         val email = intent.getStringExtra("email") // Obtén el email del Intent actual

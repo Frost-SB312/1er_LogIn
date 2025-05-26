@@ -3,4 +3,5 @@
     <string name="xd">XD</string>
     <string name="title_activity_publicaciones">Publicaciones</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="prefs_file">com.example.a1erlogin.PREFERENCE_FILE_KEY</string>
 </resources>

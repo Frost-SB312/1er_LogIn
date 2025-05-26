@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FieldValue
 
 class PublishActivity : AppCompatActivity() {
     lateinit var publicTextInput: TextInputEditText
@@ -45,25 +46,26 @@ class PublishActivity : AppCompatActivity() {
 
     fun insertPublication() {
         val db = Firebase.firestore
-        val email = intent.getStringExtra("email") ?: "Autor desconocido" // Obtén el email del Intent
+        val email = intent.getStringExtra("email") ?: "Autor desconocido"
+
         val publication = hashMapOf(
             "content" to publicTextInput.text.toString(),
-            "author" to email // Usa el email como autor
+            "author" to email,
+            "timestamp" to FieldValue.serverTimestamp()
         )
 
-        // Add a new document with a generated ID
         db.collection("publications")
             .add(publication)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                 showAlert()
-
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
                 showAlertError()
             }
     }
+
 
     private fun showPublications() {
         val email = intent.getStringExtra("email") // Obtén el email del Intent actual
@@ -76,7 +78,7 @@ class PublishActivity : AppCompatActivity() {
     private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Success")
-        builder.setMessage("Pubvlicación creada con éxito")
+        builder.setMessage("Publicación creada con éxito")
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()

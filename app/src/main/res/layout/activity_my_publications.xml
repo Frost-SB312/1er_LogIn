@@ -13,84 +13,34 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="30sp"
+        android:padding="10sp"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="16dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Mis Publicaciones"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="16dp" />
-
         <TextView
-            android:id="@+id/publicationtext"
-            android:layout_width="326dp"
-            android:layout_height="144dp"
-            android:background="@drawable/rounded_corner"
-            android:padding="10dp"
-            android:text="Publicación"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="Mis Publicaciones"
             android:textColor="#FFFFFF"
-            android:textSize="20dp"
+            android:textSize="30dp"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="69dp" />
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="16dp" />
 
-        <LinearLayout
-            android:layout_width="366dp"
-            android:layout_height="423dp"
-            android:orientation="horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/publicationsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corner"
+            android:scrollbars="vertical" />
 
-            <Button
-                android:id="@+id/EditBtn"
-                android:layout_width="113dp"
-                android:layout_height="57dp"
-                android:backgroundTint="#CC0000"
-                android:text="Editar"
-                android:textColor="#000000"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="9dp"
-                tools:layout_editor_absoluteY="218dp" />
 
-            <Button
-                android:id="@+id/DeleteBtn"
-                android:layout_width="113dp"
-                android:layout_height="54dp"
-                android:backgroundTint="#CC0000"
-                android:text="Eliminar"
-                android:textColor="#000000"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="287dp"
-                tools:layout_editor_absoluteY="221dp" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="137dp"
-                android:layout_height="54dp"
-                android:backgroundTint="#CC0000"
-                android:text="Comentarios"
-                android:textColor="#000000"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="137dp"
-                tools:layout_editor_absoluteY="221dp" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="59dp"
-            android:layout_height="55dp"
-            android:backgroundTint="#CC0000"
-            android:text="+"
-            android:textColor="#000000"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="327dp"
-            tools:layout_editor_absoluteY="638dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

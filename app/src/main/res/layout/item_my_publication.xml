@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/rounded_corner"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/publicationContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contenido"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:backgroundTint="#CC0000"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#CC0000"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#CC0000"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewLikesCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 me gusta"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

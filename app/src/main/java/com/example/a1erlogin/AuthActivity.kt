@@ -18,8 +18,9 @@ class AuthActivity : AppCompatActivity() {
     lateinit var loginButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        val splashScreen = installSplashScreen()
+
         setContentView(R.layout.activity_auth)
 
         setup()
